@@ -10,6 +10,7 @@ class Settings:
 
 # Spaceship settings
         self.spaceship_speed = 1.5
+        self.spaceships_limit = 3
 
 # Bullets settings
         self.bullet_speed = 1.0
@@ -19,6 +20,6 @@ class Settings:
         self.bullet_allowed = 5
 
 # Aliens settings
-        self.alien_speed = 0.2
+        self.alien_speed = 1
         self.fleet_drop_speed = 10
         self.fleet_direction = 1
