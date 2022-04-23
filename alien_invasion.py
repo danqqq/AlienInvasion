@@ -8,6 +8,7 @@ from game_stats import GameStats
 from spaceship import Spaceship
 from bullet import Bullet
 from alien import Alien
+from button import Button
 
 
 class AlienInvasion:
@@ -21,6 +22,8 @@ class AlienInvasion:
         self.spaceship = Spaceship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
+        self.play_button = Button(self, "PLAY!")
+
         self._create_fleet()
 
     def run_game(self):
@@ -41,16 +44,32 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+        if not self.stats.game_active:
+            self.play_button.draw_button()
         pygame.display.flip()
 
     def _check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_position = pygame.mouse.get_pos()
+                self._check_play_button(mouse_position)
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+
+    def _check_play_button(self, mouse_position):
+        if self.play_button.rect.collidepoint(mouse_position):
+            self.stats.reset_stats()
+            self.stats.game_active = True
+            """Clear aliens and bullets lists"""
+            self.aliens.empty()
+            self.bullets.empty()
+            """Creating new fleet / Center spaceship"""
+            self._create_fleet()
+            self.spaceship.center_spaceship()
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
