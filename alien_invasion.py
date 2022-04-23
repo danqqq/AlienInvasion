@@ -71,6 +71,8 @@ class AlienInvasion:
             """Creating new fleet / Center spaceship"""
             self._create_fleet()
             self.spaceship.center_spaceship()
+            """Hiding mouse cursor"""
+            pygame.mouse.set_visible(False)
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
