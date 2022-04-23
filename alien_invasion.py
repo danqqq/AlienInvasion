@@ -61,7 +61,8 @@ class AlienInvasion:
                 self._check_keyup_events(event)
 
     def _check_play_button(self, mouse_position):
-        if self.play_button.rect.collidepoint(mouse_position):
+        is_button_clicked = self.play_button.rect.collidepoint(mouse_position)
+        if is_button_clicked and not self.stats.game_active:
             self.stats.reset_stats()
             self.stats.game_active = True
             """Clear aliens and bullets lists"""
