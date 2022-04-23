@@ -62,7 +62,7 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_position):
         is_button_clicked = self.play_button.rect.collidepoint(mouse_position)
-        if is_button_clicked and not self.stats.game_active:key
+        if is_button_clicked and not self.stats.game_active:
             self._reset_game()
 
     def _check_keydown_events(self, event):
@@ -86,6 +86,7 @@ class AlienInvasion:
             self.spaceship.moving_left = False
 
     def _reset_game(self):
+        self.settings.initialize_dynamic_settings()
         self.stats.reset_stats()
         self.stats.game_active = True
         """Clear aliens and bullets lists"""
@@ -125,6 +126,7 @@ class AlienInvasion:
             """Clear the screen of bullets and create new fleet"""
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _create_fleet(self):
         alien = Alien(self)
