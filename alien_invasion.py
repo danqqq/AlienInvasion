@@ -172,6 +172,7 @@ class AlienInvasion:
             sleep(0.7)
         else:
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_if_is_alien_bottom(self):
         screen_rect = self.screen.get_rect()
