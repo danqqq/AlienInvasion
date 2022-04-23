@@ -62,17 +62,8 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_position):
         is_button_clicked = self.play_button.rect.collidepoint(mouse_position)
-        if is_button_clicked and not self.stats.game_active:
-            self.stats.reset_stats()
-            self.stats.game_active = True
-            """Clear aliens and bullets lists"""
-            self.aliens.empty()
-            self.bullets.empty()
-            """Creating new fleet / Center spaceship"""
-            self._create_fleet()
-            self.spaceship.center_spaceship()
-            """Hiding mouse cursor"""
-            pygame.mouse.set_visible(False)
+        if is_button_clicked and not self.stats.game_active:key
+            self._reset_game()
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_RIGHT:
@@ -85,12 +76,26 @@ class AlienInvasion:
             sys.exit()
         elif event.key == pygame.K_h:
             self.settings.bullet_width = 300
+        elif event.key == pygame.K_g:
+            self._reset_game()
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.spaceship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.spaceship.moving_left = False
+
+    def _reset_game(self):
+        self.stats.reset_stats()
+        self.stats.game_active = True
+        """Clear aliens and bullets lists"""
+        self.aliens.empty()
+        self.bullets.empty()
+        """Creating new fleet / Center spaceship"""
+        self._create_fleet()
+        self.spaceship.center_spaceship()
+        """Hiding mouse cursor"""
+        pygame.mouse.set_visible(False)
 
     def _prepare_screen(self):
         if self.settings.full_screen:
