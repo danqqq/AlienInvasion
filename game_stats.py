@@ -6,7 +6,9 @@ class GameStats:
         self.score = 0
         self.game_active = False
         self.high_score = 0
+        self.level = 1
 
     def reset_stats(self):
         self.spaceships_left = self.settings.spaceships_limit
         self.score = 0
+        self.level = 1
